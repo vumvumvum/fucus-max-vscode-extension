@@ -1,0 +1,569 @@
+{
+  "name": "focus-max",
+  "displayName": "Focus Max",
+  "version": "1.0.6",
+  "publisher": "local-tools",
+  "engines": {
+    "vscode": "^1.110.0"
+  },
+  "main": "./extension.js",
+  "contributes": {
+    "configurationDefaults": {
+      "terminal.integrated.commandsToSkipShell": [
+        "focusMax.toggle"
+      ]
+    },
+    "commands": [
+      {
+        "command": "focusMax.toggle",
+        "title": "Focus Max: 最大化を解除"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "workbench.action.toggleMaximizedAuxiliaryBar",
+          "when": "view =~ /^chatgpt[.]sidebar(Secondary)?View$/ && viewLocation == auxiliarybar",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "focusMax.toggle",
+          "when": "focusMax.active"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "editorAreaFocus && !sideBarVisible && !auxiliaryBarVisible && !panelVisible",
+        "args": {
+          "area": "editor",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": false,
+          "panelVisible": false
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "editorAreaFocus && sideBarVisible && !auxiliaryBarVisible && !panelVisible",
+        "args": {
+          "area": "editor",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": false,
+          "panelVisible": false
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "editorAreaFocus && !sideBarVisible && auxiliaryBarVisible && !panelVisible",
+        "args": {
+          "area": "editor",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": true,
+          "panelVisible": false
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "editorAreaFocus && sideBarVisible && auxiliaryBarVisible && !panelVisible",
+        "args": {
+          "area": "editor",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": true,
+          "panelVisible": false
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "editorAreaFocus && !sideBarVisible && !auxiliaryBarVisible && panelVisible",
+        "args": {
+          "area": "editor",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": false,
+          "panelVisible": true
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "editorAreaFocus && sideBarVisible && !auxiliaryBarVisible && panelVisible",
+        "args": {
+          "area": "editor",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": false,
+          "panelVisible": true
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "editorAreaFocus && !sideBarVisible && auxiliaryBarVisible && panelVisible",
+        "args": {
+          "area": "editor",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": true,
+          "panelVisible": true
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "editorAreaFocus && sideBarVisible && auxiliaryBarVisible && panelVisible",
+        "args": {
+          "area": "editor",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": true,
+          "panelVisible": true
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "sideBarFocus && !auxiliaryBarVisible && !panelVisible",
+        "args": {
+          "area": "sidebar",
+          "auxiliaryBarVisible": false,
+          "panelVisible": false
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "sideBarFocus && auxiliaryBarVisible && !panelVisible",
+        "args": {
+          "area": "sidebar",
+          "auxiliaryBarVisible": true,
+          "panelVisible": false
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "sideBarFocus && !auxiliaryBarVisible && panelVisible",
+        "args": {
+          "area": "sidebar",
+          "auxiliaryBarVisible": false,
+          "panelVisible": true
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "sideBarFocus && auxiliaryBarVisible && panelVisible",
+        "args": {
+          "area": "sidebar",
+          "auxiliaryBarVisible": true,
+          "panelVisible": true
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && !sideBarVisible && !auxiliaryBarVisible && !panelMaximized && panelAlignment == center",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": false,
+          "panelMaximized": false,
+          "align": "center"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && !sideBarVisible && !auxiliaryBarVisible && !panelMaximized && panelAlignment == left",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": false,
+          "panelMaximized": false,
+          "align": "left"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && !sideBarVisible && !auxiliaryBarVisible && !panelMaximized && panelAlignment == right",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": false,
+          "panelMaximized": false,
+          "align": "right"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && !sideBarVisible && !auxiliaryBarVisible && !panelMaximized && panelAlignment == justify",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": false,
+          "panelMaximized": false,
+          "align": "justify"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && sideBarVisible && !auxiliaryBarVisible && !panelMaximized && panelAlignment == center",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": false,
+          "panelMaximized": false,
+          "align": "center"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && sideBarVisible && !auxiliaryBarVisible && !panelMaximized && panelAlignment == left",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": false,
+          "panelMaximized": false,
+          "align": "left"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && sideBarVisible && !auxiliaryBarVisible && !panelMaximized && panelAlignment == right",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": false,
+          "panelMaximized": false,
+          "align": "right"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && sideBarVisible && !auxiliaryBarVisible && !panelMaximized && panelAlignment == justify",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": false,
+          "panelMaximized": false,
+          "align": "justify"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && !sideBarVisible && auxiliaryBarVisible && !panelMaximized && panelAlignment == center",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": true,
+          "panelMaximized": false,
+          "align": "center"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && !sideBarVisible && auxiliaryBarVisible && !panelMaximized && panelAlignment == left",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": true,
+          "panelMaximized": false,
+          "align": "left"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && !sideBarVisible && auxiliaryBarVisible && !panelMaximized && panelAlignment == right",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": true,
+          "panelMaximized": false,
+          "align": "right"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && !sideBarVisible && auxiliaryBarVisible && !panelMaximized && panelAlignment == justify",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": true,
+          "panelMaximized": false,
+          "align": "justify"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && sideBarVisible && auxiliaryBarVisible && !panelMaximized && panelAlignment == center",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": true,
+          "panelMaximized": false,
+          "align": "center"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && sideBarVisible && auxiliaryBarVisible && !panelMaximized && panelAlignment == left",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": true,
+          "panelMaximized": false,
+          "align": "left"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && sideBarVisible && auxiliaryBarVisible && !panelMaximized && panelAlignment == right",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": true,
+          "panelMaximized": false,
+          "align": "right"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && sideBarVisible && auxiliaryBarVisible && !panelMaximized && panelAlignment == justify",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": true,
+          "panelMaximized": false,
+          "align": "justify"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && !sideBarVisible && !auxiliaryBarVisible && panelMaximized && panelAlignment == center",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": false,
+          "panelMaximized": true,
+          "align": "center"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && !sideBarVisible && !auxiliaryBarVisible && panelMaximized && panelAlignment == left",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": false,
+          "panelMaximized": true,
+          "align": "left"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && !sideBarVisible && !auxiliaryBarVisible && panelMaximized && panelAlignment == right",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": false,
+          "panelMaximized": true,
+          "align": "right"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && !sideBarVisible && !auxiliaryBarVisible && panelMaximized && panelAlignment == justify",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": false,
+          "panelMaximized": true,
+          "align": "justify"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && sideBarVisible && !auxiliaryBarVisible && panelMaximized && panelAlignment == center",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": false,
+          "panelMaximized": true,
+          "align": "center"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && sideBarVisible && !auxiliaryBarVisible && panelMaximized && panelAlignment == left",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": false,
+          "panelMaximized": true,
+          "align": "left"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && sideBarVisible && !auxiliaryBarVisible && panelMaximized && panelAlignment == right",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": false,
+          "panelMaximized": true,
+          "align": "right"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && sideBarVisible && !auxiliaryBarVisible && panelMaximized && panelAlignment == justify",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": false,
+          "panelMaximized": true,
+          "align": "justify"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && !sideBarVisible && auxiliaryBarVisible && panelMaximized && panelAlignment == center",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": true,
+          "panelMaximized": true,
+          "align": "center"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && !sideBarVisible && auxiliaryBarVisible && panelMaximized && panelAlignment == left",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": true,
+          "panelMaximized": true,
+          "align": "left"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && !sideBarVisible && auxiliaryBarVisible && panelMaximized && panelAlignment == right",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": true,
+          "panelMaximized": true,
+          "align": "right"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && !sideBarVisible && auxiliaryBarVisible && panelMaximized && panelAlignment == justify",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": false,
+          "auxiliaryBarVisible": true,
+          "panelMaximized": true,
+          "align": "justify"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && sideBarVisible && auxiliaryBarVisible && panelMaximized && panelAlignment == center",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": true,
+          "panelMaximized": true,
+          "align": "center"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && sideBarVisible && auxiliaryBarVisible && panelMaximized && panelAlignment == left",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": true,
+          "panelMaximized": true,
+          "align": "left"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && sideBarVisible && auxiliaryBarVisible && panelMaximized && panelAlignment == right",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": true,
+          "panelMaximized": true,
+          "align": "right"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "panelFocus && sideBarVisible && auxiliaryBarVisible && panelMaximized && panelAlignment == justify",
+        "args": {
+          "area": "panel",
+          "sideBarVisible": true,
+          "auxiliaryBarVisible": true,
+          "panelMaximized": true,
+          "align": "justify"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "auxiliaryBarFocus",
+        "args": {
+          "area": "secondary"
+        }
+      },
+      {
+        "key": "ctrl+alt+m",
+        "command": "focusMax.toggle",
+        "when": "auxiliaryBarVisible && activeAuxiliary == workbench.view.extension.codexSecondaryViewContainer && (focusedView == chatgpt.sidebarSecondaryView || auxiliaryBarFocus || (!editorAreaFocus && !sideBarFocus && !panelFocus && !terminalFocus && !inQuickOpen && !inputFocus && !statusBarFocused && !notificationFocus))",
+        "args": {
+          "area": "secondary",
+          "view": "chatgpt.sidebarSecondaryView"
+        }
+      }
+    ]
+  }
+}

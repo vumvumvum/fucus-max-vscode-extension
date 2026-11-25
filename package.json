@@ -3,6 +3,7 @@
   "displayName": "Focus Max",
   "version": "1.0.6",
   "publisher": "local-tools",
+  "license": "MIT",
   "engines": {
     "vscode": "^1.110.0"
   },
